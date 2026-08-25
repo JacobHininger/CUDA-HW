@@ -30,7 +30,7 @@ float Tolerance = 0.0;
 void allocateMemory();
 void innitialize();
 void addVectorsCPU(float*, float*, float*, int);
-bool  check(float*, int);
+bool  check(float*, int, float tolerance);
 long elaspedTime(struct timeval, struct timeval);
 void cleanUp();
 
@@ -79,11 +79,11 @@ bool check(float *c, int n, float tolerence)
 	
 	trueAnswer = 3.0*(m*(m+1))/2.0;
 	
-	percentError = abs((myAnswer - trueAnswer)/trueAnswer)*100.0;
+	percentError = fabs((myAnswer - trueAnswer)/trueAnswer)*100.0;
 	
-	if(percentError < Tolerance) 
+	if(percentError = Tolerance) 
 	{
-		return(totally);
+		return(true);
 	}
 	else 
 	{
@@ -101,11 +101,11 @@ long elaspedTime(struct timeval start, struct timeval end)
 	long endTime = end.tv_sec * 1000000 + end.tv_usec; // In microseconds
 
 	// Returning the total time elasped in microseconds
-	return endTime;
+	return endTime - startTime;
 }
 
 //Cleaning up memory after we are finished.
-void CleanUp()
+void cleanUp()
 {
 	// Freeing host "CPU" memory.
 	free(A_CPU); 
@@ -144,7 +144,7 @@ int main()
 	}
 	
 	// Your done so cleanup your room.	
-	CleanUp();	
+	cleanUp();	
 	
 	// Making sure it flushes out anything in the print buffer.
 	printf("\n\n");
