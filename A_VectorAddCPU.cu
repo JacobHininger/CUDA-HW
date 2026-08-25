@@ -63,7 +63,7 @@ void addVectorsCPU(float *a, float *b, float *c, int n)
 }
 
 // Checking to see if anything went wrong in the vector addition.
-bool check(float *c, int n, float tolerence)
+bool check(float *c, int n, float tolerance)
 {
 	int id;
 	double myAnswer;
@@ -79,9 +79,9 @@ bool check(float *c, int n, float tolerence)
 	
 	trueAnswer = 3.0*(m*(m+1))/2.0;
 	
-	percentError = fabs((myAnswer - trueAnswer)/trueAnswer)*100.0;
+	percentError = abs((myAnswer - trueAnswer)/trueAnswer)*100.0;
 	
-	if(percentError = Tolerance) 
+	if(percentError <= tolerance) 
 	{
 		return(true);
 	}
