@@ -1,4 +1,4 @@
-// Name:
+// Name: Jacob Hininger
 // Vector addition on the CPU, with timer and error checking
 // To compile: nvcc A_VectorAddCPU.cu -o temp
 /*
