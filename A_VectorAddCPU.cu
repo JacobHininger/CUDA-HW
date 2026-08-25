@@ -39,6 +39,7 @@ void allocateMemory()
 {	
 	// Host "CPU" memory.				
 	A_CPU = (float*)malloc(N*sizeof(float));
+	B_CPU = (float*)malloc(N*sizeof(float));
 	C_CPU = (float*)malloc(N*sizeof(float));
 }
 
@@ -57,7 +58,7 @@ void addVectorsCPU(float *a, float *b, float *c, int n)
 {
 	for(int id = 0; id < n; id++)
 	{ 
-		c[id] = a[id] * b[id];
+		c[id] = a[id] + b[id];
 	}
 }
 
