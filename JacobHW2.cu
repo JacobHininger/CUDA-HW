@@ -138,7 +138,7 @@ __global__ void addVectorsGPU(float *a, float *b, float *c, int n)
 	int id = threadIdx.x;
 	for (int i = id; i< n; i+=blockDim.x)
 	{
-		c[id] = a[id] + b[id];
+		c[i] = a[i] + b[i];
 	}
 }
 
@@ -185,7 +185,7 @@ long elaspedTime(struct timeval start, struct timeval end)
 }
 
 // Cleaning up memory after we are finished.
-void CleanUp()
+void cleanUp()
 {
 	// Freeing host "CPU" memory.
 	free(A_CPU); 
@@ -254,7 +254,7 @@ int main()
 	}
 	
 	// Your done so cleanup your room.	
-	CleanUp();	
+	cleanUp();	
 	
 	// Making sure it flushes out anything in the print buffer.
 	printf("\n\n");
