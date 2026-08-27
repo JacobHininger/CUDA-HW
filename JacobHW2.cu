@@ -138,7 +138,7 @@ __global__ void addVectorsGPU(float *a, float *b, float *c, int n)
 	int id = threadIdx.x;
 	for (int i = id; i< n; i+=blockDim.x)
 	{
-	c[id] = a[id] + b[id];
+		c[id] = a[id] + b[id];
 	}
 }
 
