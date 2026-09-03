@@ -45,7 +45,7 @@
  1. Changed c to equal the equation for the CPU
  2. Did the same thing for GPU
  3. Added a for loop to the GPU process 
- 4. Added the line 143 to basically allow each thread to process multiple elements. 
+ 4. Added the line 144. 
  5. Added #pragma unroll at the top of the for loop.
 */
 
