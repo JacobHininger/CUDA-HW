@@ -143,6 +143,7 @@ __global__ void addVectorsGPU(float *a, float *b, float *c, int n)
 	int stride = blockDim.x *gridDim.x;
 	if(id < N) // Making sure we are not working on memory we do not own.
 	{
+		#pragma unroll
 		for (int i = id; i < n; i+= stride)
 		{
 			c[id] = sqrt(cos(a[id])*cos(a[id]) + a[id]*a[id] + sin(a[id])*sin(a[id]) - 1.0) + sqrt(cos(b[id])*cos(b[id]) + b[id]*b[id] + sin(b[id])*sin(b[id]) - 1.0);
