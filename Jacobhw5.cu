@@ -17,7 +17,6 @@
 
 /*
  Explain what you did to fix the code:
- added line 81
  added line 82
  added line 83
  added an explanation of what each piece of information means
