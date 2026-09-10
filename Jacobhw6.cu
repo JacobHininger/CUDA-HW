@@ -113,8 +113,7 @@ void display(void)
 	pixels = (float *)malloc(WindowWidth*WindowHeight*3*sizeof(float));
 	cudaErrorCheck(__FILE__, __LINE__);	
 	float *dev_pixels;
-    cudaMalloc((void**)&dev_pixels,
-               WindowWidth * WindowHeight * 3 * sizeof(float));
+    cudaMalloc((void**)&dev_pixels, WindowWidth * WindowHeight * 3 * sizeof(float));
     int totalPixels = WindowWidth * WindowHeight;
     int threadsPerBlock = 256;
     int blocks = (totalPixels + threadsPerBlock - 1) / threadsPerBlock;
