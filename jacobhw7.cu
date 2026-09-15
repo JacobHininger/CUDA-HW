@@ -101,7 +101,7 @@ __device__ float escapeOrNotColor (float x, float y)
 	}
 	else
 	{
-		return count +1.0f - log2f(logf(mag) /logf(maxMag));
+		return count +1.0f - log2f(logf(mag) /logf(maxMag)); //this basically smooths out the color. 
 	}
 }
 
