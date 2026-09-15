@@ -1,6 +1,6 @@
-// Name:
+// Name:Jacob Hininger
 // Not simple Julia Set on the GPU
-// nvcc G_JuliaExtended.cu -o temp -lglut -lGL
+// nvcc jacobhw7.cu -o temp -lglut -lGL
 
 /*
  What to do:
@@ -72,23 +72,27 @@ __device__ float escapeOrNotColor (float x, float y)
 	int maxCount = MAXITERATIONS;
 	float maxMag = MAXMAG;
 	
+	float cx = x
+	float cy = y
+	float tempY;
 	count = 0;
 	mag = sqrt(x*x + y*y);;
 	while (mag < maxMag && count < maxCount) 
 	{	
 		tempX = x; //We will be changing the x but we need its old value to find y.
-		x = x*x - y*y + A;
-		y = (2.0 * tempX * y) + B;
+		tempY =y
+		x = tempX*tempX -tempY*tempY +cx;
+		y = (2.0 * fabsf(tempX) * fabsf(tempY)) + cy;
 		mag = sqrt(x*x + y*y);
 		count++;
 	}
-	if(count < maxCount) 
+	if(count == maxCount) 
 	{
 		return(0.0);
 	}
 	else
 	{
-		return(1.0);
+		return((float)count));
 	}
 }
 
@@ -97,17 +101,25 @@ __global__ void colorPixels(float *pixels, float xMin, float yMin, float dx, flo
 	float x,y;
 	int id;
 	
+	// 2-D pixel position
+	int col = threadIdx.x +blockDim.x * blockIdx.x;
+	int row = threadIdx.y +blockDim.y * blockIdx.y;
+
+	if(col >= width || row >= height) return;
+
 	//Getting the offset into the pixel buffer. 
 	//We need the 3 because each pixel has a red, green, and blue value.
 	id = 3*(threadIdx.x + blockDim.x*blockIdx.x);
 	
 	//Asigning each thread its x and y value of its pixel.
-	x = xMin + dx*threadIdx.x;
-	y = yMin + dy*blockIdx.x;
+	x = xMin + dx*col;
+	y = yMin + dy*row;
+
+	float t = escapeOrNotColor(x,y) / (float)MAXITERATIONS;
 	
-	pixels[id] = escapeOrNotColor (x, y);
-	pixels[id+1] = 0.0; //Setting the green
-	pixels[id+2] = 0.0; //Setting the blue 
+	pixels[id]   = 0.5f + 0.5f*cosf(6.2832f*(1.0f*t + 0.00f)); // Red
+    pixels[id+1] = 0.5f + 0.5f*cosf(6.2832f*(2.5f*t + 0.33f)); // Green
+    pixels[id+2] = 0.5f + 0.5f*cosf(6.2832f*(4.0f*t + 0.67f)); // Blue
 }
 
 void display(void) 
@@ -124,24 +136,17 @@ void display(void)
 	stepSizeX = (XMax - XMin)/((float)WindowWidth);
 	stepSizeY = (YMax - YMin)/((float)WindowHeight);
 	
-	//Threads in a block
-	if(WindowWidth > 1024)
-	{
-	 	printf("The window width is too large to run with this program\n");
-	 	printf("The window width must be less than 1024.\n");
-	 	printf("Good Bye and have a nice day!\n");
-	 	exit(0);
-	}
-	blockSize.x = 1024; //WindowWidth;
-	blockSize.y = 1;
+	
+	blockSize.x = 16; //WindowWidth;
+	blockSize.y = 16;
 	blockSize.z = 1;
 	
 	//Blocks in a grid
-	gridSize.x = WindowHeight;
-	gridSize.y = 1;
+	gridSize.x = (WindowWidth  + blockSize.x - 1) / blockSize.x;
+    gridSize.y = (WindowHeight + blockSize.y - 1) / blockSize.y;
 	gridSize.z = 1;
 	
-	colorPixels<<<gridSize, blockSize>>>(pixelsGPU, XMin, YMin, stepSizeX, stepSizeY);
+	colorPixels<<<gridSize, blockSize>>>(pixelsGPU, XMin, YMin, stepSizeX, stepSizeY, WindowWidth, WindowHeight);
 	cudaErrorCheck(__FILE__, __LINE__);
 	
 	//Copying the pixels that we just colored back to the CPU.
