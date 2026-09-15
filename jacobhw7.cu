@@ -25,16 +25,16 @@
 
 /*
  Explain what you did to fix the code:
- 1. Lines 75-76: Fixed missing semicolons after "float cx = x" and "float cy = y"
- 2. Line 83: Fixed missing semicolon after "tempY = y"
- 3. Line 91: Fixed extra closing parenthesis in the return statement
- 4. Line 108: Fixed "width"/"height" typo, changed to "WindowWidth"/"WindowHeight" in the bounds check
- 5. Lines 53, 99, 168: Added WindowWidth and WindowHeight as parameters to colorPixels (prototype, definition, and the call that launches it), so it works for any window size, not just 1024x1024
- 6. Lines 112-113: Fixed the pixel index calculation to use both row and col (added flippedRow, then used it in the id calculation) instead of just col, which was causing rows to overwrite each other
- 7. Line 112: Flipped the image vertically by adding a flippedRow variable, since the picture was rendering upside down
- 8. Lines 91, 95: Changed escapeOrNotColor to return a smooth/continuous value instead of a plain integer count, and return -1.0 for points that never escape, to reduce speckly/noisy colors at the edge
- 9. Lines 128-134: Added a separate flat color for interior points (t < 0.0f) instead of running them through the same color formula as everything else
- 10. Lines 139-140: Changed the green and blue color frequency numbers from 2.5 and 4.0 to 1.4 and 2.0 so the colors transition more smoothly
+ 1. Lines 84-85: Fixed missing semicolons after "float cx = x" and "float cy = y"
+ 2. Line 92: Fixed missing semicolon after "tempY = y"
+ 3. Line 100: Fixed extra closing parenthesis in the return statement
+ 4. Line 117: Fixed "width"/"height" typo, changed to "WindowWidth"/"WindowHeight" in the bounds check
+ 5. Lines 62, 108, 177: Added WindowWidth and WindowHeight as parameters to colorPixels (prototype, definition, and the call that launches it), so it works for any window size, not just 1024x1024
+ 6. Lines 121-122: Fixed the pixel index calculation to use both row and col (added flippedRow, then used it in the id calculation) instead of just col, which was causing rows to overwrite each other
+ 7. Line 121: Flipped the image vertically by adding a flippedRow variable, since the picture was rendering upside down
+ 8. Lines 100, 104: Changed escapeOrNotColor to return a smooth/continuous value instead of a plain integer count, and return -1.0 for points that never escape, to reduce speckly/noisy colors at the edge
+ 9. Lines 137-143: Added a separate flat color for interior points (t < 0.0f) instead of running them through the same color formula as everything else
+ 10. Lines 148-149: Changed the green and blue color frequency numbers from 2.5 and 4.0 to 1.4 and 2.0 so the colors transition more smoothly
 */
 
 // Include files
