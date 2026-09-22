@@ -143,14 +143,14 @@ __global__ void dotProductGPU(float *a, float *b, float *c, int n)
 	{
 		if(fold%2 != 0)
 		{
-			if(id == 0 && (fold - 1) < n)
+			if(threadId.x == 0)
 			{
 				sharedC[0] = sharedC[0] + sharedC[fold - 1];
 			}
 			fold = fold - 1;
 		}
 		fold = fold/2;
-		if(threadIdx.x < fold && (id + fold) < n)
+		if(threadIdx.x < fold)
 		{
 			sharedC[threadIdx.x] = sharedC[threadIdx.x] + sharedC[threadIdx.x + fold];
 		}
@@ -248,7 +248,7 @@ int main()
 	cudaMemcpyAsync(B_GPU, B_CPU, PaddedN*sizeof(float), cudaMemcpyHostToDevice);
 	cudaErrorCheck(__FILE__, __LINE__);
 	
-	dotProductGPU<<<GridSize,BlockSize,Blocksize.x*sizeof(float)>>>(A_GPU, B_GPU, C_GPU, N);
+	dotProductGPU<<<GridSize,BlockSize,BlockSize.x*sizeof(float)>>>(A_GPU, B_GPU, C_GPU, N);
 	cudaErrorCheck(__FILE__, __LINE__);
 	
 	// Copy Memory from GPU to CPU	
