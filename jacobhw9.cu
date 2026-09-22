@@ -24,7 +24,14 @@
 
 /*
  Explain what you did to fix the code:
- 
+  1. Changed the grid from 1 block to enough blocks for the vector size
+  2. Added padding with zeroes so the last block is filled to 256 threads.
+  3. Increased the CPU/GPU memory allocations to use the padded vector size.
+  4. Added shared memory in the GPU kernel to perform the reduction within each block.
+  5. Changed the GPU thread index to account for multiple blocks.
+  6. Changed the GPU kernel to store one partial dot product per block.
+  7. Copied the partial results back to the CPU for the final summation (big word).
+  8. Removed the old check that stopped the program when N was larger than the block size. 
 */
 
 // Include files
