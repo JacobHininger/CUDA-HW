@@ -59,7 +59,7 @@ void dotProductCPU(float*, float*, int);
 __global__ void dotProductGPU(float*, float*, float*, int);
 bool  check(float, float, float);
 long elaspedTime(struct timeval, struct timeval);
-void cleanUp();
+void CleanUp();
 
 // This check to see if an error happened in your CUDA code. It tell you what it thinks went wrong,
 // and what file and line it occured on.
@@ -150,7 +150,7 @@ __global__ void dotProductGPU(float *a, float *b, float *c, int n)
 	{
 		if(fold%2 != 0)
 		{
-			if(threadId.x == 0)
+			if(threadIdx.x == 0)
 			{
 				sharedC[0] = sharedC[0] + sharedC[fold - 1];
 			}
@@ -262,6 +262,11 @@ int main()
 	cudaMemcpyAsync(C_CPU, C_GPU, GridSize.x*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaErrorCheck(__FILE__, __LINE__);
 	DotGPU = C_CPU[0]; // C_GPU was copied into C_CPU.
+	
+	for(int id = 1; id < GridSize.x; id++)
+	{
+		DotGPU += C_CPU[id];
+	}
 	
 	// Making sure the GPU and CPU wiat until each other are at the same place.
 	cudaDeviceSynchronize();
