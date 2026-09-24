@@ -105,7 +105,7 @@ void cudaErrorCheck(const char *file, int line)
 	}
 }
 
-bool isPowerOfTwo(int x) // this just checks if N is a power of 2.
+bool isPowerOfTwo(int x) // this just checks if the thread count is a power of 2.
 {
 	return (x != 0) && ((x & (x - 1)) == 0);
 }
