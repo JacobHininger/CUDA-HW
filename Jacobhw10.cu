@@ -48,7 +48,16 @@
 
 /*
  Explain what you did to fix the code:
- 
+ 1. added isPowerOfTwo(0 to check if the new block size is a power of two.
+ 2. added chooseGPU to pick the best available GPU.
+ 3. added deviceProp 
+ 4. added a grid/block limit in setUpDevices, compares the blocksize to the gridsize against deviceProp.maxThreadsPerBlock/deviceProp.maxGridSize[0], and exits if either limit is exceeded.
+ 5. added PaddedN.
+ 6. AGPU/BGPU allocated to PaddedN (like last time).
+ 7. CGPU was changed from N to a single float, allows the kernel to do atomicAdd to sum the block's partial results on the GPU instead of on the CPU (or something like that).
+ 8. Host to device copies copy only N floats into the padded, zeroed device arrays. It's not PaddedN because the host buffers are only N long. 
+ 9. Device to Host copy is now a single cudaMemcpyAsync(&DotGPU, CGPU, sizeof(float), ...) instead of copying N floats back.
+ 10. removed (for(i=0; i<N; i+=Blocksize.x) dotgpu += ccpu[i];) since the atomic add already produces the final sum.
 */
 
 // Include files
