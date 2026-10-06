@@ -1,6 +1,6 @@
 // Name:Jacob 
 // Ray tracing
-// nvcc JacobhwK.cu -o temp -lglut -lGL -lm
+// nvcc jacobhwK.cu -o temp -lglut -lGL -lm
 
 /*
  What to do:
