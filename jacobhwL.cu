@@ -193,7 +193,7 @@ __global__ void fillHistogramGPU(float *randomNumbers, int *hist)
 	{
 		localHist[i] = 0;
 	}
-	__synchthreads(); //everyone waits until the shared histogram is fully zeroed. 
+	__syncthreads(); //everyone waits until the shared histogram is fully zeroed. 
 
 	if(id < NUMBER_OF_RANDOM_NUMBERS) // bin this thread's number using atomics on shared memory (fast, only contends within the block).
 	{
@@ -207,9 +207,9 @@ __global__ void fillHistogramGPU(float *randomNumbers, int *hist)
 		}
 		atomicAdd(&localHist[k], 1);
 	}
-	__syncthread(); //wait until every thread in the block has finished binning. 
+	__syncthreads(); //wait until every thread in the block has finished binning. 
 
-	for(int i = threadIdx.x;, i< NUMBER_OF_BINS; i+= blockDim.x) // merge the block's shared histgram into the blobal one: only Number_of_bins global atomics per block.
+	for(int i = threadIdx.x; i< NUMBER_OF_BINS; i+= blockDim.x) // merge the block's shared histgram into the blobal one: only Number_of_bins global atomics per block.
 	{
 		atomicAdd(&hist[i], localHist[i]);
 	}
@@ -261,7 +261,7 @@ int main()
 	//Check
 	for(int i = 0; i < NUMBER_OF_BINS; i++)
 	{
-		printf("\n Deference in histogram bins %d is %d.", i, abs(HistogramCPUTemp[i] - HistogramCPU[i]));
+		printf("\n Difference in histogram bins %d is %d.", i, abs(HistogramCPUTemp[i] - HistogramCPU[i]));
 	}
 	
 	//You're done so cleanup your mess.
