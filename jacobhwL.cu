@@ -1,6 +1,6 @@
 // Name:Jacob
 // Histogram useing atomics in global memory and shared memory.
-// nvcc JacobhwL.cu -o temp
+// nvcc jacobhwL.cu -o temp
 
 /*
  What to do:
