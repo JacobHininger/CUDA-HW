@@ -1,6 +1,6 @@
 // Name: Jacob 
 // Page-locked memory test
-// nvcc JacobhwM.cu -o temp
+// nvcc jacobhwM.cu -o temp
 
 /*
  What to do:
