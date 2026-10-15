@@ -1,6 +1,6 @@
 // Name: 
 // Setting up a stream
-// nvcc N_Streams.cu -o temp
+// nvcc jacobhwN.cu -o temp
 
 /*
  What to do:
