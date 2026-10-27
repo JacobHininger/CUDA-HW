@@ -1,6 +1,6 @@
 // Name:
 // GPU random walk. 
-// nvcc P_GPURandomWalk.cu -o temp
+// nvcc jacobhwP.cu -o temp
 
 /*
  What to do:
