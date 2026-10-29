@@ -1,6 +1,6 @@
 // Name:
 // Vector addition on two GPUs.
-// nvcc Q_VectorAdd2GPUS.cu -o temp
+// nvcc jacobhwQ.cu -o temp
 /*
  What to do:
  This code adds two vectors of any length on a GPU.
@@ -44,11 +44,6 @@
  6. Both kernels and copies are issued asynchronously, and then I call cudaSetDevice + cudaDeviceSynchronize
     on each GPU so the CPU waits for both to finish before checking the answer. This lets the two GPUs
     run at the same time.
- 7. Fixed bugs in the original template that would not compile or would not work:
-      - The kernel prototype said (float, float, float, int) but the kernel takes float pointers.
-      - The check() prototype did not match the definition (missing the tolerance argument).
-      - cleanUp() was declared but CleanUp() was defined (different names).
-      - Added #include <stdlib.h> (malloc, free, exit) and used fabs() instead of abs() for a double.
 */
 
 // Include files
