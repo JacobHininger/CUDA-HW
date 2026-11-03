@@ -65,7 +65,7 @@
 #define DAMP 0.01
 #define DRAW 100
 #define LENGTH_OF_BOX 6.0
-#define MAX_VELOCITY 5.0
+#define MAX_VELOCITY 50.0
 
 // Globals
 const float XMax = (LENGTH_OF_BOX/2.0);
