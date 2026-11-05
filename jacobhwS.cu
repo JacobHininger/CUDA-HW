@@ -1,6 +1,6 @@
-// Name: 
+// Name: Jacob Hininger
 // Creating a GPU nBody simulation from an nBody CPU simulation. 
-// nvcc S_NBodyCPUToGPU1Block.cu -o temp -lglut -lm -lGLU -lGL
+// nvcc jacobhwS.cu -o temp -lglut -lm -lGLU -lGL
 
 /*
  What to do:
