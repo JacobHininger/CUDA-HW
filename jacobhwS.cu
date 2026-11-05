@@ -64,7 +64,7 @@ float GlobeRadius, Diameter, Radius;
 float Damp;
 
 // GPU globals and launch configuration
-float3 *P_GPU, *V_GPU, *F_GPU;
+float3 *P_GPU, *V_GPU, *F_GPU; // added these for the GPU
 float *M_GPU;
 dim3 BlockSize, GridSize;
 
@@ -243,7 +243,7 @@ __global__ void getForces(float3 *p, float3 *f, float *m, int n, float g, float 
 	float3 pi = p[i];
 	float3 force = make_float3(0.0f, 0.0f, 0.0f);
 	
-	for(int j = 0; j < n; j++)
+	for(int j = 0; j < n; j++) // each thread does the math twice but doesn't replace each other
 	{
 		if(j == i) continue;
 		
