@@ -1,6 +1,6 @@
-// Name: 
+// Name: Jacob
 // Creating a n = whatever from an n <= 1024 nBody GPU code. 
-// nvcc T0_LargeNBodyGPU.cu -o temp -lglut -lm -lGLU -lGL
+// nvcc jacobHWT.cu -o temp -lglut -lm -lGLU -lGL
 
 /*
  What to do:
