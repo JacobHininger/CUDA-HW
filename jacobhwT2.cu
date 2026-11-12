@@ -1,6 +1,6 @@
 // Name:
 // nBody code on multiple GPUs. 
-// nvcc T1_1GPU_To_2GPUs_Nbody.cu -o temp -lglut -lm -lGLU -lGL
+// nvcc jacobhwT2.cu -o temp -lglut -lm -lGLU -lGL
 
 /*
  What to do:
@@ -26,8 +26,6 @@
  bodies (the inner j-loop still runs over all N bodies).
  After every time step each GPU only has fresh positions for its own half, so I synchronize both GPUs and
  swap the halves with cudaMemcpyPeer. After the swap both GPUs have all N updated positions again. 
- No unified memory is used anywhere; every cudaMalloc/cudaMemcpy is explicit. For drawing I copy the
- full position array back from GPU 0.
 */
 
 // Include files
