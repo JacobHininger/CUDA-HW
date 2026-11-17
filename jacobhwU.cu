@@ -1,6 +1,6 @@
 // Name:
 // nBody run on all available GPUs. 
-// nvcc U_NbodyUnifiedMemoryPrefetch.cu -o temp -lglut -lm -lGLU -lGL
+// nvcc jacobhwU.cu -o temp -lglut -lm -lGLU -lGL
 
 /*
  What to do:
