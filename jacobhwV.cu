@@ -1,6 +1,6 @@
 // Name:
 // Optimizing nBody GPU code. 
-// nvcc V_nBodySpeedChallenge.cu -o temp -lglut -lm -lGLU -lGL
+// nvcc jacobhwV.cu -o temp -lglut -lm -lGLU -lGL
 
 /*
  What to do:
